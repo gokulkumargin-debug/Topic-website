@@ -121,44 +121,43 @@ https://templatemo.com/tm-590-topic-listing
                         </div>
 
                         <div class="col-lg-6 col-12">
-                            <form action="#" method="post" class="custom-form contact-form" role="form">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="form-floating">
-                                            <input type="text" name="name" id="name" class="form-control" placeholder="Name" required="">
-                                            
-                                            <label for="floatingInput">Name</label>
-                                        </div>
-                                    </div>
+                            <!-- Contact Form -->
+<form id="contactForm" class="custom-form contact-form" role="form">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-12">
+      <div class="form-floating">
+        <input type="text" name="name" id="name" class="form-control" placeholder="Name" required>
+        <label for="name">Name</label>
+      </div>
+    </div>
 
-                                    <div class="col-lg-6 col-md-6 col-12"> 
-                                        <div class="form-floating">
-                                            <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required="">
-                                            
-                                            <label for="floatingInput">Email address</label>
-                                        </div>
-                                    </div>
+    <div class="col-lg-6 col-md-6 col-12"> 
+      <div class="form-floating">
+        <input type="email" name="email" id="email" class="form-control" placeholder="Email address" required>
+        <label for="email">Email address</label>
+      </div>
+    </div>
 
-                                    <div class="col-lg-12 col-12">
-                                        <div class="form-floating">
-                                            <input type="text" name="subject" id="name" class="form-control" placeholder="Name" required="">
-                                            
-                                            <label for="floatingInput">Subject</label>
-                                        </div>
+    <div class="col-lg-12 col-12">
+      <div class="form-floating">
+        <input type="text" name="subject" id="subject" class="form-control" placeholder="Subject" required>
+        <label for="subject">Subject</label>
+      </div>
 
-                                        <div class="form-floating">
-                                            <textarea class="form-control" id="message" name="message" placeholder="Tell me about the project"></textarea>
-                                            
-                                            <label for="floatingTextarea">Tell me about the project</label>
-                                        </div>
-                                    </div>
+      <div class="form-floating">
+        <textarea class="form-control" id="message" name="message" placeholder="Tell me about the project" required></textarea>
+        <label for="message">Tell me about the project</label>
+      </div>
+    </div>
 
-                                    <div class="col-lg-4 col-12 ms-auto">
-                                        <button type="submit" class="form-control">Submit</button>
-                                    </div>
+    <div class="col-lg-4 col-12 ms-auto">
+      <button type="submit" class="form-control">Submit</button>
+    </div>
+  </div>
+</form>
 
-                                </div>
-                            </form>
+<p id="formMessage" style="color: red; font-weight: bold; margin-top: 10px;"></p>
+
                         </div>
 
                         <div class="col-lg-5 col-12 mx-auto mt-5 mt-lg-0">
@@ -251,6 +250,41 @@ https://templatemo.com/tm-590-topic-listing
         <script src="js/bootstrap.bundle.min.js"></script>
         <script src="js/jquery.sticky.js"></script>
         <script src="js/custom.js"></script>
+        <script>
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // Stop normal form submission
+
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let subject = document.getElementById("subject").value.trim();
+    let message = document.getElementById("message").value.trim();
+    let formMessage = document.getElementById("formMessage");
+
+    // Simple validation rules
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if(name === "" || !emailPattern.test(email) || subject === "" || message === "") {
+        formMessage.textContent = "❌ Wrong values entered. Please enter correct details.";
+        return;
+    }
+
+    // Simulate storing values (you can replace with backend/API later)
+    try {
+        localStorage.setItem("contactFormData", JSON.stringify({
+            name: name,
+            email: email,
+            subject: subject,
+            message: message
+        }));
+
+        // ✅ If stored correctly, redirect
+        window.location.href = "thank-you.html"; 
+    } catch (error) {
+        formMessage.textContent = "❌ Failed to store data. Please try again.";
+    }
+});
+</script>
+
 
     </body>
 </html>
